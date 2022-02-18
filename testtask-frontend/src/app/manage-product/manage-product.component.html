@@ -1,0 +1,63 @@
+<mat-tab-group [color]="'primary'" [backgroundColor]="'primary'" class="mat-grp-style" [(selectedIndex)]="selectedTab">
+  <mat-tab style="margin: 5px;" label="Product Add">
+    <div class="pad-10">
+      <h1>Product Details</h1>
+      <div class="pad-10">
+        <table class="w-full">
+          <tr class="pt-5">
+            <td class="text-right pr-5">Item Name</td>
+            <td><input id="item_name" name="item_name" type="text" class="w-full" [(ngModel)]="itemName" /></td>
+          </tr>
+          <tr class="pt-5">
+            <td class="text-right pr-5">Item Price</td>
+            <td><input id="item_price" name="item_price" type="number" class="w-full" [(ngModel)]="itemPrice" /></td>
+          </tr>
+          <tr class="pt-5">
+            <td class="text-right pr-5">Item Image</td>
+            <td><input #inputFile id="item_price" name="item_price" type="file" class="w-full"
+                accept="image/png, image/gif, image/jpeg" (change)="onChange($event)" /></td>
+          </tr>
+          <tr *ngIf="isEditMode && filePath" style="text-align: center; width: 100%;">
+            <td colspan="2">
+              <img [src]="filePath" height="100px" width="100px" />
+            </td>
+          </tr>
+          <tr *ngIf="errorMessage" style="text-align: center; width: 100%;">
+            <td colspan="2" style="color: red;">{{errorMessage}}</td>
+          </tr>
+          <tr class="pt-5">
+            <td class="text-right"></td>
+            <td>
+              <button class="w-full submit-button" (click)="submitForm()" mat-button color="primary">Save</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Product List">
+    <div class="pad-10">
+      <table class="product-table">
+        <tr>
+          <th>Item Name</th>
+          <th>Item Price</th>
+          <th>Image</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngFor="let product of allProducts">
+          <td>{{ product.name }}</td>
+          <td>{{ product.price }} rs</td>
+          <td><img height="100px" width="100px" [src]="product.image_url" /></td>
+          <td>
+            <button mat-button class="submit-button" (click)="editProduct(product)">
+              <mat-icon aria-hidden="false" class="action-icon">edit</mat-icon> Edit
+            </button>
+            <button mat-button class="submit-button" style="margin-left: 5px;" (click)="deleteProduct(product)">
+              <mat-icon class="action-icon" aria-hidden="false">delete</mat-icon> Delete
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </mat-tab>
+</mat-tab-group>

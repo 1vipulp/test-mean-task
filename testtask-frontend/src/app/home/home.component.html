@@ -1,0 +1,75 @@
+<div style="height: 100%; margin: 10px;">
+  <div style="height: 40%; border: 1px solid #3f51b5; overflow: scroll;" infiniteScroll [infiniteScrollDistance]="100"
+  [infiniteScrollThrottle]="5" [scrollWindow]="false"f (scrolled)="productListScroll()">
+  <div style="background-color: #3f51b5; color: white; padding: 10px;">Product List</div>
+    <div *ngIf="allProducts && allProducts.length > 0" class="grid-container">
+      <div *ngFor="let product of allProducts" class="grid-item"
+        style="border: 1px solid grey; margin: 2%; width: auto; height: auto;">
+        <img [src]="product.image_url" height="200px" width="200px" style="display: block; margin: auto;" />
+        <div style="width: 100%; text-align: center; flex-direction: row; margin-top: 10px;">
+          <span style="margin-top: 20px;">{{product.name}}</span>
+        </div>
+        <hr style="padding-left: 5px; padding-right: 5px;">
+        <div style="width: 100%; display: flex; flex-direction: row; margin-top: 10px;">
+          <div style="margin: auto;"><span>${{product.price}}</span></div>
+          <div><button mat-button style="margin: 5px; color: white; background-color: orangered;"
+              (click)="addToCart(product)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="height: 2%;"></div>
+  <div style="height: 40%; border: 1px solid #3f51b5; overflow: auto;">
+    <div style="background-color: #3f51b5; color: white; padding: 10px;">My Cart</div>  
+    <div *ngIf="cartItems && cartItems.length > 0" style="margin: 10px;">
+      <table class="product-table">
+        <tr>
+          <th>Product Details</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngFor="let product of cartItems">
+          <td>
+            <img [src]="product.image_url" height="100px" width="100px" />
+            <span style="margin-left: 10px;">{{product.name}}</span>
+          </td>
+          <td>
+            ${{product.price}}
+          </td>
+          <td>
+            <span>
+              <mat-icon aria-hidden="false" class="action-icon" (click)="changeQuantity(product, 'inc')">add</mat-icon>
+              <span style="padding: 5px; border: 1px solid grey;">{{product.quantity}}</span>
+              <mat-icon aria-hidden="false" class="action-icon" (click)="changeQuantity(product, 'dec')">remove
+              </mat-icon>
+            </span>
+          </td>
+          <td>
+            ${{product.subtotal}}
+          </td>
+          <td>
+            <button mat-button class="submit-button" (click)="removeFromCart(product)">
+              <mat-icon aria-hidden="false" class="action-icon">delete</mat-icon> Remove Item
+            </button>
+          </td>
+        </tr>
+      </table>
+      <!-- <div *ngFor="let product of cartItems" class=""
+        style="border: 1px solid grey; margin: 2%; width: auto; height: auto;">
+        <img [src]="product.image_url" height="200px" width="200px" style="display: block; margin: auto;" />
+        <div style="width: 100%; text-align: center; flex-direction: row; margin-top: 10px;">
+          <span style="margin-top: 20px;">{{product.name}}</span>
+        </div>
+        <hr style="padding-left: 5px; padding-right: 5px;">
+        <div style="width: 100%; display: flex; flex-direction: row; margin-top: 10px;">
+          <div style="margin: auto;"><span>${{product.price}}</span></div>
+          <div><button mat-button style="margin: 5px; color: white; background-color: orangered;" (click)="addToCart(product)">Add to Cart</button>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>

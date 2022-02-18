@@ -1,0 +1,9 @@
+<div mat-dialog-content style="text-align: center;">
+  <mat-icon aria-hidden="false" class="action-icon" [ngClass]="data.color === 'success' ? 'action-icon-success' : 'action-icon-info'">{{data.icon}}</mat-icon>
+  <br>
+  {{ data.message }}
+  <br>
+  <div style="margin-top: 10px;">
+    <button mat-button class="dialog-button" (click)="closeDialog()"> OK </button>
+  </div>
+</div>
